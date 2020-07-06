@@ -1,0 +1,65 @@
+{
+  "expo": {
+    "name": "Mastro Pizza",
+    "slug": "mastro_pizza_app",
+    "privacy": "public",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "notification": {
+      "icon": "./assets/notifications_icon_rgb.png",
+      "iosDisplayInForeground": true
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#465C87",
+      "barStyle": "light-content"
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#465c87"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Для коректної роботи додаток потребує доступу до камери та галереї зображень, для того, щоб мати змогу прикріпити зображення до Вашого профілю.",
+        "NSPhotoLibraryUsageDescription": "Для коректної роботи додаток потребує доступу до камери та галереї зображень, для того, щоб мати змогу прикріпити зображення до Вашого профілю.",
+        "NSPhotoLibraryAddUsageDescription": "Для коректної роботи додаток потребує доступу до камери та галереї зображень, для того, щоб мати змогу прикріпити зображення до Вашого профілю.",
+        "LSApplicationQueriesSchemes": [
+          "tel",
+          "facebook",
+          "fbapi",
+          "fb-messenger-share-api",
+          "fbauth2",
+          "fbshareextension"
+        ],
+        "facebookScheme": "fb668596570367881",
+        "facebookAppId": "668596570367881",
+        "facebookDisplayName": "Mastro Pizza"
+      },
+      "bundleIdentifier": "com.devseonet.mastropizza"
+    },
+    "android": {
+      "package": "com.devseonet.mastropizza",
+      "versionCode": 6,
+      "permissions": [
+        "CAMERA",
+        "ACCESS_NETWORK_STATE"
+      ]
+    },
+    "facebookScheme": "fb668596570367881",
+    "facebookAppId": "668596570367881",
+    "facebookDisplayName": "Mastro Pizza"
+  }
+}
