@@ -48,13 +48,13 @@ const styles = (scales) => StyleSheet.create({
     tag: {
         fontFamily: app_styles(scales).fonts.weight.medium,
         fontSize: Math.round(scales.fontScale * 13),
-        color: app_styles(scales).colors.app.blue,
+        color: app_styles(scales).colors.app.orange,
         marginRight: Math.round(scales.widthScale * 8)
     },
     read_more: {
         fontFamily: app_styles(scales).fonts.weight.medium,
         fontSize: Math.round(scales.fontScale * 15),
-        color: app_styles(scales).colors.app.blue
+        color: app_styles(scales).colors.app.orange,
     },
     gallery_card_container: {
         backgroundColor: app_styles(scales).colors.app.white,

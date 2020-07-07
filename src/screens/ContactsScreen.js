@@ -14,6 +14,7 @@ const IcoMoonIcon = createIconSetFromIcoMoon(icoMoonConfig, 'icomoon', 'icomoon.
 import Header from "../components/shared/Header";
 import {SafeView, Block, Spacer, DataLoadingIndicator, HorizontalDivider, VerticalSpacer} from "../components/shared";
 import {NetworkErrorModal} from "../components/modals";
+import ContactsCard from "../components/shared/ContactsCard";
 //Navigation Events
 import {NavigationEvents} from 'react-navigation';
 //Localization
@@ -149,6 +150,8 @@ const ContactsScreen = ({navigation}) => {
                     title={translator.translate(language, "Контакти")}
                     noIcons
                 />
+
+
                 <View style={styles(scales).body}>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -162,232 +165,11 @@ const ContactsScreen = ({navigation}) => {
                                     !settingsNetworkError
                                         ? (
                                             <>
-                                                {
-                                                    Object.keys(emmaPizzaRestaurant).length
-                                                        ? (
-                                                            <>
-                                                                {/* IMAGE */}
-                                                                <View style={{paddingBottom: Math.round(scales.widthScale * 25)}}>
-                                                                    <HorizontalDivider height={1}
-                                                                                       color={app_styles(scales).colors.text.light_grey}/>
-                                                                    <Animated.View style={{
-                                                                        justifyContent: 'flex-start',
-                                                                        alignItems: 'flex-start',
-                                                                        height: animatedHeight,
-                                                                    }}>
-                                                                        <Animated.Image
-                                                                            source={{uri: emmaPizzaRestaurant.image}}
-                                                                            style={{
-                                                                                width: screen_width,
-                                                                                height: animatedHeight,
-                                                                                resizeMode: 'cover'
-                                                                            }}
-                                                                        />
-                                                                    </Animated.View>
-                                                                    <HorizontalDivider height={1}
-                                                                                       color={app_styles(scales).colors.text.light_grey}/>
-                                                                    {/* Switcher */}
-                                                                    <TouchableOpacity onPress={toggleHeight}
-                                                                                      style={styles(scales).toggler_btn}
-                                                                                      activeOpacity={.9}>
-                                                                        <IcoMoonIcon
-                                                                            style={{transform: [{rotate: getArrowPosition()}]}}
-                                                                            name="arrow_downward"
-                                                                            color={app_styles(scales).colors.text.primary}
-                                                                            size={Math.round(scales.widthScale * 18)}
-                                                                        />
-                                                                    </TouchableOpacity>
-                                                                </View>
-                                                                {/* Contacts */}
-                                                                <Block>
-                                                                    <View style={app_styles(scales).row_start}>
-                                                                        <Text
-                                                                            style={styles(scales).title}>{emmaPizzaRestaurant.title}</Text>
-                                                                    </View>
-                                                                    {
-                                                                        notEmptyString(emmaPizzaRestaurant.schedule)
-                                                                            ? (
-                                                                                <>
-                                                                                    <Spacer spaceHeight={14}/>
-                                                                                    <View style={app_styles(scales).row_start}>
-                                                                                        <View style={styles(scales).icon_container}>
-                                                                                            <IcoMoonIcon name="wall-clock"
-                                                                                                         color={app_styles(scales).colors.app.light_black}
-                                                                                                         size={Math.round(scales.widthScale * 18)}/>
-                                                                                        </View>
-                                                                                        <View>
-                                                                                            <Text
-                                                                                                style={styles(scales).text}>{emmaPizzaRestaurant.schedule}</Text>
-                                                                                        </View>
-                                                                                    </View>
-                                                                                </>
-                                                                            )
-                                                                            : null
-                                                                    }
-                                                                    {
-                                                                        notEmptyString(emmaPizzaRestaurant.address)
-                                                                            ? (
-                                                                                <>
-                                                                                    <Spacer spaceHeight={14}/>
-                                                                                    <View style={app_styles(scales).row_start}>
-                                                                                        <View style={styles(scales).icon_container}>
-                                                                                            <IcoMoonIcon name="pin"
-                                                                                                         color={app_styles(scales).colors.app.light_black}
-                                                                                                         size={Math.round(scales.widthScale * 19)}/>
-                                                                                        </View>
-                                                                                        <TouchableOpacity onPress={openMap}
-                                                                                                          activeOpacity={.7}>
-                                                                                            <Text
-                                                                                                style={styles(scales).text}>{emmaPizzaRestaurant.address}</Text>
-                                                                                        </TouchableOpacity>
-                                                                                    </View>
-                                                                                </>
-                                                                            )
-                                                                            : null
-                                                                    }
-                                                                    {
-                                                                        notEmptyString(emmaPizzaRestaurant.phone)
-                                                                            ? (
-                                                                                <>
-                                                                                    <Spacer spaceHeight={14}/>
-                                                                                    <View style={app_styles(scales).row_start}>
-                                                                                        <View style={styles(scales).icon_container}>
-                                                                                            <IcoMoonIcon name="phone-alt"
-                                                                                                         color={app_styles(scales).colors.app.light_black}
-                                                                                                         size={Math.round(scales.widthScale * 18)}/>
-                                                                                        </View>
-                                                                                        <TouchableOpacity onPress={makeCall}
-                                                                                                          activeOpacity={.7}>
-                                                                                            <Text
-                                                                                                style={styles(scales).text}>{emmaPizzaRestaurant.phone}</Text>
-                                                                                        </TouchableOpacity>
-                                                                                    </View>
-                                                                                </>
-                                                                            )
-                                                                            : null
-                                                                    }
-                                                                    {
-                                                                        notEmptyString(contacts.email)
-                                                                            ? (
-                                                                                <>
-                                                                                    <Spacer spaceHeight={14}/>
-                                                                                    <View style={app_styles(scales).row_start}>
-                                                                                        <View style={styles(scales).icon_container}>
-                                                                                            <IcoMoonIcon name="envelope"
-                                                                                                         color={app_styles(scales).colors.app.light_black}
-                                                                                                         size={Math.round(scales.widthScale * 18)}/>
-                                                                                        </View>
-                                                                                        <TouchableOpacity onPress={sendEmail}
-                                                                                                          activeOpacity={.7}>
-                                                                                            <Text
-                                                                                                style={styles(scales).text}>{contacts.email}</Text>
-                                                                                        </TouchableOpacity>
-                                                                                    </View>
-                                                                                </>
-                                                                            )
-                                                                            : null
-                                                                    }
-                                                                    {
-                                                                        hasAtLeLeastOneSocial()
-                                                                            ? (
-                                                                                <>
-                                                                                    <Spacer spaceHeight={30}/>
-                                                                                    <View style={app_styles(scales).row_start}>
-                                                                                        <Text
-                                                                                            style={styles(scales).sub_title}>{translator.translate(language, 'Ми в соц. мережах')}</Text>
-                                                                                    </View>
-                                                                                    <Spacer spaceHeight={10}/>
-                                                                                    <View style={app_styles(scales).row_start}>
-                                                                                        {
-                                                                                            notEmptyString(emmaPizzaRestaurant.facebook)
-                                                                                                ? (
-                                                                                                    <>
-                                                                                                        <TouchableOpacity
-                                                                                                            style={styles(scales).social_btn}
-                                                                                                            onPress={() => handleLink(emmaPizzaRestaurant.facebook, 'facebook')}
-                                                                                                            activeOpacity={.8}
-                                                                                                        >
-                                                                                                            <IcoMoonIcon
-                                                                                                                name="facebook-app-logo"
-                                                                                                                color={app_styles(scales).colors.text.grey}
-                                                                                                                size={30}
-                                                                                                            />
-                                                                                                        </TouchableOpacity>
-                                                                                                        <VerticalSpacer spaceWidth={12} />
-                                                                                                    </>
-                                                                                                )
-                                                                                                : null
-                                                                                        }
-                                                                                        {
-                                                                                            notEmptyString(emmaPizzaRestaurant.instagram)
-                                                                                                ? (
-                                                                                                    <>
-                                                                                                        <TouchableOpacity
-                                                                                                            style={styles(scales).social_btn}
-                                                                                                            onPress={() => handleLink(emmaPizzaRestaurant.instagram, 'inastagram')}
-                                                                                                            activeOpacity={.8}
-                                                                                                        >
-                                                                                                            <IcoMoonIcon
-                                                                                                                name="social-media"
-                                                                                                                color={app_styles(scales).colors.text.grey}
-                                                                                                                size={30}
-                                                                                                            />
-                                                                                                        </TouchableOpacity>
-                                                                                                        <VerticalSpacer spaceWidth={12} />
-                                                                                                    </>
-                                                                                                )
-                                                                                                : null
-                                                                                        }
-                                                                                        {
-                                                                                            notEmptyString(emmaPizzaRestaurant.youtube)
-                                                                                                ? (
-                                                                                                    <>
-                                                                                                        <TouchableOpacity
-                                                                                                            style={styles(scales).social_btn}
-                                                                                                            onPress={() => handleLink(emmaPizzaRestaurant.youtube, 'youtube')}
-                                                                                                            activeOpacity={.8}
-                                                                                                        >
-                                                                                                            <IcoMoonIcon
-                                                                                                                name="youtube"
-                                                                                                                color={app_styles(scales).colors.text.grey}
-                                                                                                                size={30}
-                                                                                                            />
-                                                                                                        </TouchableOpacity>
-                                                                                                        <VerticalSpacer spaceWidth={12} />
-                                                                                                    </>
-                                                                                                )
-                                                                                                : null
-                                                                                        }
-                                                                                        {
-                                                                                            notEmptyString(emmaPizzaRestaurant.tripadvisor)
-                                                                                                ? (
-                                                                                                    <>
-                                                                                                        <TouchableOpacity
-                                                                                                            style={styles(scales).social_btn}
-                                                                                                            onPress={() => handleLink(emmaPizzaRestaurant.tripadvisor, 'tripadvisor')}
-                                                                                                            activeOpacity={.8}
-                                                                                                        >
-                                                                                                            <IcoMoonIcon
-                                                                                                                name="tripadvisor-seeklogocom"
-                                                                                                                color={app_styles(scales).colors.text.grey}
-                                                                                                                size={30}
-                                                                                                            />
-                                                                                                        </TouchableOpacity>
-                                                                                                    </>
-                                                                                                )
-                                                                                                : null
-                                                                                        }
-                                                                                    </View>
-                                                                                </>
-                                                                            )
-                                                                            : null
-                                                                    }
-                                                                </Block>
-
-                                                            </>
-                                                        )
-                                                        : null
-                                                }
+                                                <View style={styles(scales).container}>
+                                                    <ContactsCard style={styles(scales).contacts_card}/>
+                                                    <ContactsCard style={styles(scales).contacts_card}/>
+                                                    <ContactsCard style={styles(scales).contacts_card}/>
+                                                </View>
                                             </>
                                         )
                                         : <NetworkErrorModal

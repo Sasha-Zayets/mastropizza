@@ -141,7 +141,10 @@ const NewsCard = ({navigation, post, preview}) => {
                     style={[styles(scales).thumbnail, generateThumbnailExtraStyles()]}
                 />
             </View>
-            <View style={{ backgroundColor: preview ? '#F3F3F3' : '#FFFFFF' }}>
+            <View style={{
+                    backgroundColor: preview ? '#f5f5f5' : '#FFFFFF',
+                    borderRadius: 5,
+            }}>
                 <Spacer spaceHeight={20}/>
                 <View>
                     {/* Title */}
