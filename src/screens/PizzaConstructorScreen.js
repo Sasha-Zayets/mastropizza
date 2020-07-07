@@ -492,7 +492,7 @@ const PizzaConstructorScreen = ({navigation}) => {
                                                                 <Spacer spaceHeight={15}/>
                                                                 <View style={styles(scales).manipulators_block}>
                                                                     <TouchableOpacity
-                                                                        style={[styles(scales).button, {backgroundColor: app_styles(scales).colors.app.blue}]}
+                                                                        style={[styles(scales).button, {backgroundColor: app_styles(scales).colors.app.orange}]}
                                                                         onPress={() => quantityHandler('-')}
                                                                         activeOpacity={0.8}
                                                                     >
@@ -505,7 +505,7 @@ const PizzaConstructorScreen = ({navigation}) => {
                                                                             style={styles(scales).product_quantity}>{product.quantity}</Text>
                                                                     </View>
                                                                     <TouchableOpacity
-                                                                        style={[styles(scales).button, {backgroundColor: app_styles(scales).colors.app.blue}]}
+                                                                        style={[styles(scales).button, {backgroundColor: app_styles(scales).colors.app.orange}]}
                                                                         onPress={() => quantityHandler('+')}
                                                                         activeOpacity={0.8}
                                                                     >

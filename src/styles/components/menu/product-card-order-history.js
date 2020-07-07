@@ -52,7 +52,7 @@ const styles = (scales) => StyleSheet.create({
     },    
     product_price: {
         fontFamily: app_styles(scales).fonts.weight.bold,
-        color: app_styles(scales).colors.app.blue,
+        color: app_styles(scales).colors.app.black,
         fontSize: Math.round(scales.fontScale * 14),
     },
     product_price_black: {

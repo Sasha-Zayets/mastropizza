@@ -261,7 +261,7 @@ const ProfileEditScreen = ({ navigation }) => {
                                                     />
                                                     : (
                                                         <View style={styles(scales).avatar_container}>
-                                                            <IcoMoonIcon name="user" color={isLoggedIn ? app_styles(scales).colors.app.blue : app_styles(scales).app_grey} size={Math.round(scales.widthScale * 30)} />
+                                                            <IcoMoonIcon name="user" color={isLoggedIn ? app_styles(scales).colors.app.black : app_styles(scales).app_grey} size={Math.round(scales.widthScale * 30)} />
                                                         </View>
                                                     )
                                             }
@@ -326,7 +326,7 @@ const ProfileEditScreen = ({ navigation }) => {
                                                 : null
                                         }
                                         <ButtonPrimary
-                                            color={app_styles(scales).colors.app.blue}
+                                            color={app_styles(scales).colors.app.orange}
                                             callback={formSubmit}
                                             title={translator.translate(language, "Зберегти")}
                                             isDataLoading={isDataLoading}

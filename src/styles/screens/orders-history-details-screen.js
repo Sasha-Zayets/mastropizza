@@ -36,7 +36,7 @@ const styles = (scales) => StyleSheet.create({
     total_price: {
         fontSize: app_styles(scales).app_base_font_size,
         fontFamily: app_styles(scales).fonts.weight.bold,
-        color: app_styles(scales).colors.app.blue,
+        color: app_styles(scales).colors.app.orange,
     },
 });
 

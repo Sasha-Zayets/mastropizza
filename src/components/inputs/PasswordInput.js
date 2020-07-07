@@ -41,7 +41,7 @@ const PasswordInput = ({ value, placeholder, error, clearError, callback, name }
         <>
             <View style={styles(scales).input_container}>
                 <TextInput
-                    style={[styles(scales).input, { borderBottomWidth: Math.round(scales.widthScale * 1), borderBottomColor: isFocused ? app_styles(scales).colors.app.blue : app_styles(scales).colors.text.light_grey }]}
+                    style={[styles(scales).input, { borderBottomWidth: Math.round(scales.widthScale * 1), borderBottomColor: isFocused ? app_styles(scales).colors.app.orange : app_styles(scales).colors.text.light_grey }]}
                     placeholderTextColor={app_styles(scales).colors.text.light_grey}
                     placeholder={placeholder}
                     autocapitalize="none"
@@ -54,12 +54,12 @@ const PasswordInput = ({ value, placeholder, error, clearError, callback, name }
                 />
                 <TouchableOpacity
                     activeOpacity={0.7}
-                    style={[styles(scales).secure_button_container, { borderBottomWidth: Math.round(scales.widthScale * 1), borderBottomColor: isFocused ? app_styles(scales).colors.app.blue : app_styles(scales).colors.text.light_grey }]}
+                    style={[styles(scales).secure_button_container, { borderBottomWidth: Math.round(scales.widthScale * 1), borderBottomColor: isFocused ? app_styles(scales).colors.app.orange : app_styles(scales).colors.text.light_grey }]}
                     onPress={() => setSecured(!secured)}
                 >
                     <IcoMoonIcon
                         name={secured ? 'crossed-eye' : 'eye'}
-                        color={isFocused ? app_styles(scales).colors.app.blue : app_styles(scales).colors.text.light_grey}
+                        color={isFocused ? app_styles(scales).colors.app.black : app_styles(scales).colors.text.light_grey}
                         size={Math.round(scales.widthScale * 20)}
                     />
                 </TouchableOpacity>

@@ -15,11 +15,11 @@ const styles = (scales, isSelected) => StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: Math.round(scales.widthScale * 1),
-        backgroundColor: isSelected ? app_styles(scales).colors.app.blue : app_styles(scales).colors.app.white,
-        borderColor: isSelected ? app_styles(scales).colors.app.blue : app_styles(scales).colors.text.grey
+        backgroundColor: isSelected ? app_styles(scales).colors.app.orange : app_styles(scales).colors.app.white,
+        borderColor: isSelected ? app_styles(scales).colors.app.orange : app_styles(scales).colors.text.black
     },    
     title: {
-        color: isSelected ? app_styles(scales).colors.text.white : app_styles(scales).colors.text.grey,
+        color: isSelected ? app_styles(scales).colors.text.white : app_styles(scales).colors.text.black,
         fontFamily: app_styles(scales).fonts.weight.medium,
         fontSize: Math.round(scales.fontScale * 12),    
     }

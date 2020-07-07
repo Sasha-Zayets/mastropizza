@@ -35,7 +35,7 @@ const IngredientCard = ({ ingredient, callback, decreaseOnly }) => {
 
     const generateExtraCardStyles = () => {
         return {
-            borderColor: isChecked() ? app_styles(scales).colors.app.blue : app_styles(scales).colors.text.light_grey,
+            borderColor: isChecked() ? app_styles(scales).colors.app.black : app_styles(scales).colors.text.light_grey,
         }
     }
 
@@ -111,7 +111,10 @@ const IngredientCard = ({ ingredient, callback, decreaseOnly }) => {
                     ? (
                         <View style={styles(scales).manipulators_wrap}>
                             <View style={styles(scales).manipulators_block}>
-                            <TouchableOpacity style={styles(scales).button} onPress={() => ingredientQuantityHandler()} activeOpacity={0.8}>
+                            <TouchableOpacity
+                                style={styles(scales).button}
+                                onPress={() => ingredientQuantityHandler()}
+                                activeOpacity={0.8}>
                                 <IcoMoonIcon name="minus" color={app_styles(scales).colors.text.white} size={Math.round(scales.widthScale * 14)} />
                             </TouchableOpacity>
                             <View style={styles(scales).ingredient_quantity_container}>

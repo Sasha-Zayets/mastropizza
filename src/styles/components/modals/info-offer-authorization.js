@@ -27,9 +27,9 @@ const styles = (scales) => StyleSheet.create({
   button: {
     width: '49%',
     height: 40,
-    backgroundColor: app_styles(scales).colors.app.blue,
+    backgroundColor: app_styles(scales).colors.app.orange,
     borderWidth: Math.round(scales.heightScale * 1),
-    borderColor: app_styles(scales).colors.app.blue,
+    borderColor: app_styles(scales).colors.app.orange,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -37,9 +37,9 @@ const styles = (scales) => StyleSheet.create({
     borderRadius: Math.round(scales.widthScale * 6),
   },
   button_light: {
-    backgroundColor: app_styles(scales).colors.app.light_blue,
+    backgroundColor: app_styles(scales).colors.app.dark_orange,
     borderWidth: Math.round(scales.heightScale * 1),
-    borderColor: app_styles(scales).colors.app.light_blue,
+    borderColor: app_styles(scales).colors.app.dark_orange,
   },
   text: {
     color: app_styles(scales).colors.app.white,

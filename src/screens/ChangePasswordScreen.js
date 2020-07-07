@@ -137,9 +137,9 @@ const ChangePasswordScreen = ({ navigation }) => {
                                             <Spacer spaceHeight={15} />
                                             <View style={styles(scales).logo_container}>
                                                 <IcoMoonIcon
-                                                    name={"logo_emma"}
+                                                    name={"logo"}
                                                     size={Math.round(scales.widthScale * 75)}
-                                                    color={app_styles(scales).colors.app.blue}
+                                                    color={app_styles(scales).colors.app.black}
                                                 />
                                             </View>
                                             <Spacer spaceHeight={45} />
@@ -172,7 +172,7 @@ const ChangePasswordScreen = ({ navigation }) => {
                                             <Spacer spaceHeight={30} />
                                             <ButtonPrimary
                                                 title={translator.translate(language, "Змінити пароль")}
-                                                color={app_styles(scales).colors.app.blue}
+                                                color={app_styles(scales).colors.app.orange}
                                                 isDataLoading={isDataLoading}
                                                 callback={formSubmit}
                                             />

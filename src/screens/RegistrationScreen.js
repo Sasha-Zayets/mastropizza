@@ -159,9 +159,9 @@ const RegistrationScreen = ({ navigation }) => {
                                         <Spacer spaceHeight={15} />
                                         <View style={styles(scales).logo_container}>
                                             <IcoMoonIcon
-                                                name={"logo_emma"}
-                                                size={Math.round(scales.widthScale * 75)}
-                                                color={app_styles(scales).colors.app.blue}
+                                                name={"logo"}
+                                                size={Math.round(scales.widthScale * 90)}
+                                                color={app_styles(scales).colors.app.black}
                                             />
                                         </View>
                                         <Spacer spaceHeight={45} />
@@ -194,7 +194,7 @@ const RegistrationScreen = ({ navigation }) => {
                                         <Spacer spaceHeight={30} />
                                         <ButtonPrimary
                                             title={translator.translate(language, "Зареєструватися")}
-                                            color={app_styles(scales).colors.app.blue}
+                                            color={app_styles(scales).colors.app.orange}
                                             isDataLoading={isDataLoading}
                                             callback={submitForm}
                                         />

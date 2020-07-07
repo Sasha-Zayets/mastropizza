@@ -59,7 +59,7 @@ const styles = (scales) => StyleSheet.create({
         paddingVertical: Math.round(scales.heightScale * 8),
         borderBottomColor: app_styles(scales).colors.app.gold,
         borderBottomWidth: Math.round(scales.heightScale),
-        backgroundColor: app_styles(scales).colors.app.blue
+        backgroundColor: app_styles(scales).colors.app.orange
     },    
     close_modal_button: {
         width: Math.round(scales.widthScale * 50),
@@ -99,7 +99,7 @@ const styles = (scales) => StyleSheet.create({
     items_list_title: {
         fontFamily: app_styles(scales).fonts.weight.regular,
         fontSize: Math.round(scales.fontScale * 14),
-        color: app_styles(scales).colors.text.primary,
+        color: app_styles(scales).colors.text.black,
     }
 });
 

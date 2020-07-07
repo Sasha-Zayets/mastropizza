@@ -247,7 +247,7 @@ const ProductCardMenu = ({product, navigation}) => {
                                                                               onPress={() => cartHandler()} activeOpacity={0.5}>
                                                                 <View style={styles(scales).manipulator_subtract_button}>
                                                                     <IcoMoonIcon name="minus"
-                                                                                 color={app_styles(scales).colors.text.grey}
+                                                                                 color={app_styles(scales).colors.text.black}
                                                                                  size={Math.round(scales.widthScale * 14)}/>
                                                                 </View>
                                                             </TouchableOpacity>
@@ -270,7 +270,7 @@ const ProductCardMenu = ({product, navigation}) => {
                                                         <TouchableOpacity style={styles(scales).cart_button}
                                                                           onPress={() => cartHandler("+")} activeOpacity={0.7}>
                                                             <IcoMoonIcon name="shopping-bag"
-                                                                         color={app_styles(scales).colors.text.primary}
+                                                                         color={app_styles(scales).colors.app.orange}
                                                                          size={Math.round(scales.widthScale * 23)}/>
                                                         </TouchableOpacity>
                                                     )

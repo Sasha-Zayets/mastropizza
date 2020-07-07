@@ -56,7 +56,14 @@ const styles = (scales) => StyleSheet.create({
         position: 'absolute', 
         right: Math.round(scales.widthScale * 16), 
         bottom: Math.round(scales.widthScale * 0),
-        elevation: 4
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     manipulators_block: {
         justifyContent: 'flex-start',
@@ -84,7 +91,7 @@ const styles = (scales) => StyleSheet.create({
     product_quantity: {
         fontFamily: app_styles(scales).fonts.weight.medium,
         fontSize: Math.round(scales.fontScale * 18),
-        color: app_styles(scales).colors.text.primary,
+        color: app_styles(scales).colors.text.black,
     },
     weight: {
         fontFamily: app_styles(scales).fonts.weight.regular,

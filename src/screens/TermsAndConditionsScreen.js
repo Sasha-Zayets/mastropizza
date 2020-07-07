@@ -40,13 +40,13 @@ const TermsAndConditionsScreen = ({ navigation }) => {
                 <Block>
                     <Spacer spaceHeight={15} />
                     <TouchableOpacity style={app_styles(scales).row_start} onPress={() => navigation.navigate('TermsAndConditionsPage', {page: 'public_offer'})} activeOpacity={.7}>
-                        <IcoMoonIcon name="paper" color={app_styles(scales).colors.app.blue} size={Math.round(scales.widthScale * 22)} />
+                        <IcoMoonIcon name="paper" color={app_styles(scales).colors.app.black} size={Math.round(scales.widthScale * 22)} />
                         <VerticalSpacer spaceWidth={10} />
                         <Text style={styles(scales).text}>{translator.translate(language, "Договір публічної оферти")}</Text>
                     </TouchableOpacity>
                     <Spacer spaceHeight={15} />
                     <TouchableOpacity style={app_styles(scales).row_start} onPress={() => navigation.navigate('TermsAndConditionsPage', {page: 'privacy_policy'})} activeOpacity={.7}>
-                        <IcoMoonIcon name="paper" color={app_styles(scales).colors.app.blue} size={Math.round(scales.widthScale * 22)} />
+                        <IcoMoonIcon name="paper" color={app_styles(scales).colors.app.black} size={Math.round(scales.widthScale * 22)} />
                         <VerticalSpacer spaceWidth={10} />
                         <Text style={styles(scales).text}>{translator.translate(language, "Політика конфіденційності")}</Text>
                     </TouchableOpacity>

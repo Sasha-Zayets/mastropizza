@@ -25,7 +25,7 @@ const styles = (scales) => StyleSheet.create({
         width: Math.round(scales.widthScale * 10),
         height: Math.round(scales.widthScale * 10),
         borderRadius: Math.round(scales.widthScale * 10),
-        backgroundColor: app_styles(scales).colors.app.blue
+        backgroundColor: app_styles(scales).colors.app.orange
     },
     label: {
         fontSize: app_styles(scales).fonts.size.base,

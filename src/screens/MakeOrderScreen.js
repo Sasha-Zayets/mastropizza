@@ -687,7 +687,7 @@ const MakeOrderScreen = ({navigation}) => {
                                                                 <View style={styles(scales).li_elem}>
                                                                     <View style={styles(scales).icon_container}>
                                                                         <IcoMoonIcon name="mute"
-                                                                                     color={app_styles(scales).colors.app.blue}
+                                                                                     color={app_styles(scales).colors.app.orange}
                                                                                      size={Math.round(scales.widthScale * 22)}/>
                                                                     </View>
                                                                     <View style={styles(scales).text_container}>
@@ -700,11 +700,11 @@ const MakeOrderScreen = ({navigation}) => {
                                                                     />
                                                                 </View>
 
-                                                                <HorizontalDivider height={1}/>
+                                                                <HorizontalDivider height={1} />
                                                                 <View style={styles(scales).li_elem}>
                                                                     <View style={styles(scales).icon_container}>
                                                                         <IcoMoonIcon name="stroller"
-                                                                                     color={app_styles(scales).colors.app.blue}
+                                                                                     color={app_styles(scales).colors.app.orange}
                                                                                      size={Math.round(scales.widthScale * 23)}/>
                                                                     </View>
                                                                     <View style={styles(scales).text_container}>
@@ -717,11 +717,11 @@ const MakeOrderScreen = ({navigation}) => {
                                                                     />
                                                                 </View>
 
-                                                                <HorizontalDivider height={1}/>
+                                                                <HorizontalDivider height={1} />
                                                                 <View style={styles(scales).li_elem}>
                                                                     <View style={styles(scales).icon_container}>
                                                                         <IcoMoonIcon name="dog"
-                                                                                     color={app_styles(scales).colors.app.blue}
+                                                                                     color={app_styles(scales).colors.app.orange}
                                                                                      size={Math.round(scales.widthScale * 22)}/>
                                                                     </View>
                                                                     <View style={styles(scales).text_container}>
@@ -806,7 +806,7 @@ const MakeOrderScreen = ({navigation}) => {
                                                             <ButtonPrimary
                                                                 callback={formSubmit}
                                                                 title={translator.translate(language, "Замовити")}
-                                                                color={app_styles(scales).colors.app.blue}
+                                                                color={app_styles(scales).colors.app.orange}
                                                                 isDataLoading={isDataLoading}
                                                             />
                                                         </View>

@@ -19,6 +19,8 @@ const app_styles = (scales) => {
                 green: "#1AA056",
                 dark_green: "#4a7356",
                 light_black: '#565E6B',
+                dark_orange: '#d96334',
+                black: '#000000'
             }
         },
         fonts: {

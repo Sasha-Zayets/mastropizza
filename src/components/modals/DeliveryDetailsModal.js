@@ -140,7 +140,7 @@ const DeliveryDetailsModal = ({isOpened, closeCallback}) => {
                                     <View style={styles(scales).line}>
                                         <View
                                             style={[styles(scales).text_container, {paddingLeft: Math.round(scales.widthScale * 30)}]}>
-                                            <Text style={[styles(scales).info_important, {textDecorationLine: "underline"}]}>{translator.translate(language, "м. Львів")}:
+                                            <Text style={[styles(scales).info_important, {textDecorationLine: "none"}]}>{translator.translate(language, "м. Львів")}:
                                                 <Text style={styles(scales).success_info}>{translator.translate(language, "безкоштовно")}; </Text>
                                             </Text>
                                         </View>
@@ -152,7 +152,7 @@ const DeliveryDetailsModal = ({isOpened, closeCallback}) => {
                                             <View
                                                 style={[styles(scales).text_container, {paddingLeft: Math.round(scales.widthScale * 30)}]}>
                                                 <Text
-                                                    style={[styles(scales).info_important, {textDecorationLine: "underline"}]}>{translator.translate(language, "м. Львів")}:</Text>
+                                                    style={[styles(scales).info_important, {textDecorationLine: "none"}]}>{translator.translate(language, "м. Львів")}:</Text>
                                             </View>
                                         </View>
                                         <Spacer spaceHeight={5} />
@@ -177,7 +177,7 @@ const DeliveryDetailsModal = ({isOpened, closeCallback}) => {
                             <View
                                 style={[styles(scales).text_container, {paddingLeft: Math.round(scales.widthScale * 30)}]}>
                                 <Text
-                                    style={[styles(scales).info_important, {textDecorationLine: "underline"}]}>{translator.translate(language, "Інші населені пункти")}: </Text>
+                                    style={[styles(scales).info_important, {textDecorationLine: "none"}]}>{translator.translate(language, "Інші населені пункти")}: </Text>
                             </View>
                         </View>
                         <Spacer spaceHeight={5} />

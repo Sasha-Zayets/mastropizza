@@ -38,7 +38,7 @@ const SimpleInput = ({ value, placeholder, error, clearError, callback, name, nu
         <View style={styles(scales).main_container}>
             <View style={styles(scales).input_container}>
                 <TextInput
-                    style={[styles(scales).input, { borderBottomWidth: Math.round(scales.widthScale * 1), borderBottomColor: isFocused ? app_styles(scales).colors.app.blue : app_styles(scales).colors.text.light_grey }]}
+                    style={[styles(scales).input, { borderBottomWidth: Math.round(scales.widthScale * 1), borderBottomColor: isFocused ? app_styles(scales).colors.app.orange : app_styles(scales).colors.text.light_grey }]}
                     placeholderTextColor={app_styles(scales).colors.text.light_grey}
                     placeholder={placeholder}
                     autocapitalize="none"

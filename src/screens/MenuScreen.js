@@ -43,7 +43,7 @@ const MenuScreen = ({navigation}) => {
     const {state: {scales, appSettings, screen_width, settingsNetworkError, language}, setLanguage, getAppSettings, clearSettingsNetworkError} = useContext(AppSettingsContext);
     const {state: {user, networkError, unreadNotifications, isLoggedIn}, fetchUserByToken, getUserNotifications, clearNetworkError} = useContext(AuthContext);
     // const animateValue = useRef(new Animated.Value(0)).current;
-    const [animatedValue, setAnimatedValue] = useState(0);
+    const [animatedValue, setAnimatedValue] = useState(1);
     const [heightSlider, setHeightSlider] = useState(100);
 
     const [index, setIndex] = useState(0);
@@ -67,10 +67,15 @@ const MenuScreen = ({navigation}) => {
     }, [appSettings, language])
 
     const callBack = (event) => {
-        const positionScrollTop = event.nativeEvent.contentOffset.y;
+        const positionScroll = event.nativeEvent.contentOffset.y;
 
-        setHeightSlider(heightSlider - positionScrollTop);
-        setAnimatedValue(positionScrollTop)
+        if(positionScroll > 10) {
+            setAnimatedValue(0);
+            setHeightSlider(0);
+        } else {
+            setAnimatedValue(1);
+            setHeightSlider(100);
+        }
     }
 
     const getCategories = async () => {
@@ -273,7 +278,7 @@ const MenuScreen = ({navigation}) => {
                             <StatusBar backgroundColor={app_styles(scales).colors.app.blue} barStyle="light-content"/>
                             <View style={styles(scales).error_container}>
                                 <IcoMoonIcon
-                                    name="logo_emma"
+                                    name="logo"
                                     size={Math.round(scales.widthScale * 100)}
                                     color={app_styles(scales).colors.app.white}
                                 />

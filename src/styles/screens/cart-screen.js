@@ -30,7 +30,7 @@ const styles = (scales) => StyleSheet.create({
     total_price: {
         fontSize: Math.round(scales.fontScale * 20),
         fontFamily: app_styles(scales).fonts.weight.bold,
-        color: app_styles(scales).colors.app.blue,
+        color: app_styles(scales).colors.app.orange,
     },
     subtotal_title: {
         fontSize: Math.round(scales.fontScale * 14),

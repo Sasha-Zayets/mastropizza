@@ -38,7 +38,7 @@ const SuccessOrderModal = ({ isOpened, closeCallback }) => {
                     {/* Card body */}
                     <View style={styles(scales).card_body}>
                         <View style={styles(scales).icon_container}>
-                            <IcoMoonIcon name="shopping-bag-checked" color={app_styles(scales).colors.app.blue} size={Math.round(scales.widthScale * 50)} />
+                            <IcoMoonIcon name="shopping-bag-checked" color={app_styles(scales).colors.app.black} size={Math.round(scales.widthScale * 50)} />
                         </View>
                         <Spacer spaceHeight={16} />
                         <Text style={styles(scales).card_title}>{translator.translate(language, "Замовлення успішно оформлене")}</Text>

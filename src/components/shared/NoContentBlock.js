@@ -34,7 +34,7 @@ const NoContentBlock = ({ navigation, title, note, toMainLink, toMenuLink, icon 
     return (
         <View style={styles(scales).container}>
             <View style={styles(scales).content_container}>
-                <IcoMoonIcon name={icon || "sad"} color={app_styles(scales).colors.text.grey} size={Math.round(scales.widthScale * 48)} />
+                <IcoMoonIcon name={icon || "sad"} color={app_styles(scales).colors.app.black} size={Math.round(scales.widthScale * 48)} />
                 <Spacer spaceHeight={24} />
                 <Text style={styles(scales).title}>{title}</Text>
                 <Spacer spaceHeight={6} />
@@ -44,7 +44,7 @@ const NoContentBlock = ({ navigation, title, note, toMainLink, toMenuLink, icon 
                     toMainLink
                         ? <View style={styles(scales).btn_container}>
                             <ButtonOrder
-                                color={app_styles(scales).colors.app.blue}
+                                color={app_styles(scales).colors.app.orange}
                                 title={translator.translate(language, "На головний екран")}
                                 callback={() => navigation.navigate('Menu')}
                             />
@@ -55,7 +55,7 @@ const NoContentBlock = ({ navigation, title, note, toMainLink, toMenuLink, icon 
                     toMenuLink
                         ? <View style={styles(scales).btn_container}>
                             <ButtonOrder
-                                color={app_styles(scales).colors.app.blue}
+                                color={app_styles(scales).colors.app.orange}
                                 title={translator.translate(language, "До меню")}
                                 callback={() => navigation.navigate('Menu')}
                             />

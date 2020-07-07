@@ -26,7 +26,7 @@ const styles = (scales) => StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'stretch',
         paddingLeft: Math.round(scales.widthScale * 16),
-        backgroundColor: app_styles(scales).colors.app.blue,
+        backgroundColor: app_styles(scales).colors.app.orange,
         paddingVertical: Math.round(scales.heightScale * 16),
         borderBottomColor: app_styles(scales).colors.app.gold,
         borderBottomWidth: Math.round(scales.heightScale * 1),
@@ -67,7 +67,7 @@ const styles = (scales) => StyleSheet.create({
         justifyContent: 'center'
     },
     info_important: {
-        fontFamily: app_styles(scales).fonts.weight.medium,
+        fontFamily: app_styles(scales).fonts.weight.bold,
         fontSize: Math.round(scales.fontScale * 15),
         color: app_styles(scales).colors.text.primary,
     },

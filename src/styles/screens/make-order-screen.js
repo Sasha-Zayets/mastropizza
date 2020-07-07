@@ -60,7 +60,7 @@ const styles = (scales) => StyleSheet.create({
     total_price: {
         fontSize: Math.round(scales.fontScale * 18),
         fontFamily: app_styles(scales).fonts.weight.bold,
-        color: app_styles(scales).colors.app.blue,
+        color: app_styles(scales).colors.app.orange,
     },
     icon_container: {
         width: Math.round(scales.widthScale * 30),

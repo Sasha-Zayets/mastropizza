@@ -7,7 +7,7 @@ import { app_styles } from "../../app_styles";
 //----STYLES----//
 const styles = (scales) => StyleSheet.create({
     container: {
-        backgroundColor: app_styles(scales).colors.app.white,
+        backgroundColor: app_styles(scales).colors.app.orange,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: Math.round(scales.heightScale * 10),
@@ -38,7 +38,7 @@ const styles = (scales) => StyleSheet.create({
         width: Math.round(scales.widthScale * 26),
         height: Math.round(scales.heightScale * 2),
         borderRadius: Math.round(scales.widthScale * 1),
-        backgroundColor: app_styles(scales).colors.app.orange
+        backgroundColor: app_styles(scales).colors.app.white
     },
     logo_container: {
         flex: 1,
