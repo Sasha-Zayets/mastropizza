@@ -140,20 +140,22 @@ const MenuScreen = ({navigation}) => {
     const renderTabBar = props => (
         <TabBar
             {...props}
-            indicatorStyle={{backgroundColor: app_styles(scales).colors.app.orange}}
+            indicatorStyle={{backgroundColor: app_styles(scales).colors.app.white}}
             style={{backgroundColor: '#ffffff'}}
-            renderIcon={({route, focused, color}) => {
-                return <Image
-                    source={{uri: route.category.image}}
-                    style={styles(scales).menu_icon}
-                />
-            }}
             renderLabel={({route, focused, color}) => {
                 return (
-                    <Text
-                        style={[styles(scales).label, {color: focused ? app_styles(scales).colors.text.primary : app_styles(scales).colors.text.grey}]}>
-                        {route.title}
-                    </Text>
+                    <View style={[
+                        styles(scales).button,
+                        {backgroundColor: focused ? app_styles(scales).colors.app.orange : app_styles(scales).colors.app.silver_light}
+                    ]}>
+                        <Text
+                            style={[
+                                styles(scales).label,
+                                {color: focused ? app_styles(scales).colors.text.white : app_styles(scales).colors.text.black_light},
+                            ]}>
+                            {route.title}
+                        </Text>
+                    </View>
                 )
             }}
             scrollEnabled={true}

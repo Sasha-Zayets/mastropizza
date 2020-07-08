@@ -32,16 +32,27 @@ const styles = (scales) => StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',   
+        alignItems: 'center',
         paddingVertical: Math.round(scales.heightScale * 40),
         backgroundColor: app_styles(scales).colors.app.white,
     },
     btn_group: {
         width: '100%'
     },
+    button: {
+        height: Math.round(scales.widthScale * 30),
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: app_styles(scales).colors.app.orange,
+        borderRadius: 15,
+        minWidth: 60,
+        paddingHorizontal: 10,
+    },
     label: {
         fontFamily: app_styles(scales).fonts.weight.medium,
         fontSize: Math.round(scales.fontScale * 14),
+        color: app_styles(scales).colors.app.white,
     },
     tab: {
         flexDirection: 'row',

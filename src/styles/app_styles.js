@@ -8,6 +8,7 @@ const app_styles = (scales) => {
                 light_grey: "#999999",
                 red: "#aa141d",
                 gold: "#e6c176",
+                black_light: '#454b54',
             },
             app: {
                 light_grey: '#E5E5E5',
@@ -20,7 +21,8 @@ const app_styles = (scales) => {
                 dark_green: "#4a7356",
                 light_black: '#565E6B',
                 dark_orange: '#d96334',
-                black: '#000000'
+                black: '#000000',
+                silver_light: '#f3f3f7',
             }
         },
         fonts: {
