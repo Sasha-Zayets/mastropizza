@@ -2,7 +2,8 @@
 //React
 import React, {useContext, useEffect, useState} from 'react';
 //React native
-import {View, FlatList, Text, ScrollView, Image, KeyboardAvoidingView} from 'react-native';
+import {View, FlatList, Text, ScrollView, Image, KeyboardAvoidingView, SafeAreaView, Dimensions} from 'react-native';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 //Context
 import {Context as AppSettingsContext} from "../context/AppSettingsContext";
 import {Context as MenuContext} from "../context/MenuContext";
@@ -24,6 +25,8 @@ import {ButtonAddToCart} from "../components/buttons";
 import {TextAreaInput} from "../components/inputs";
 import ProductCard from "../components/menu/ProductCard";
 import IngredientCard from "../components/menu/IngredientCard";
+import Carousel from "react-native-sideswipe";
+
 //Api
 import axiosWithErrorHandler from '../services/axiosWithToken';
 //Global vars
@@ -57,7 +60,10 @@ const ProductScreen = ({navigation}) => {
     const [activeIngredientsCategory, setActiveIngredientsCategory] = useState(null);
     const [ingredientsLimit, setIngredientsLimit] = useState(null);
 
+    const [totalProducts, setTotalProducts] = useState([]);
 
+    const [index, setIndex] = React.useState(0);
+    const [routes, setRoutes] = React.useState(totalProducts);
     //Methods and hooks
     useEffect(() => {
 
@@ -66,17 +72,54 @@ const ProductScreen = ({navigation}) => {
                 startProductManipulations();
             }
             totalPriceCalculator();
+            test();
         }
 
     }, [product, recalculate]);
 
+    const test = async () => {
+        const total = await getProductsTotal();
+        setTotalProducts(total);
+        setRoutes(total);
+    }
+
+    const getProductData = async (page) => {
+        const lang = prepareLanguageToHttpRequest(language);
+        const url = `${BASE_URL}/product/products-for-category?lang=${lang}&version=${APP_VERSION}&category_id=1&page=${page}`;
+        const { data } = await axiosWithErrorHandler.get(url);
+
+        return data;
+    }
+
+    const getProductsTotal = async () => {
+        let productArray = [];
+        let page = 1;
+        let result = await getProductData(page);
+
+        productArray = [...result.data];
+
+        for(let i = page + 1; i <= result.meta.total_pages; i++) {
+            const data = await getProductData(i);
+            productArray = [
+                ...productArray,
+                ...data.data
+            ]
+        }
+
+        return productArray.map(item => {
+            return {
+                ...item,
+                key: item.id,
+                name: item.name
+            }
+        })
+    }
 
     const handleFocus = () => {
         if (!product) {
             return fetchProduct();
         }
     }
-
 
     const fetchProduct = async () => {
         if (!product) {
@@ -134,7 +177,6 @@ const ProductScreen = ({navigation}) => {
             }
         }
     }
-
 
     const extraIngredientsHandler = (ingredientId, newQuantity, type, noToggle = false) => {
         ingredients.forEach(item => {
@@ -279,7 +321,197 @@ const ProductScreen = ({navigation}) => {
         return ingredientsLimit <= 0;
     }
 
+    const productRender = (product, index) => (
+        <View
+            key={index}
+            style={styles(scales).body}>
+            <ScrollView showsVerticalScrollIndicator={false} bounces={false}
+                        keyboardShouldPersistTaps={'always'} contentContainerStyle={{flexGrow: 1}}>
+                {
+                    !networkError
+                        ? (
+                            !isDataLoading
+                                ? (
+                                    product
+                                        ? (
+                                            <>
+                                                <ProductCard
+                                                    product={product}
+                                                    navigation={navigation}
+                                                    quantityCallBack={quantityHandler}
+                                                    variantCallback={variantHandler}
+                                                />
+                                                <Block>
+                                                    <View>
+                                                        {
+                                                            hasIngredients()
+                                                                ? (
+                                                                    <>
+                                                                        <Spacer spaceHeight={10}/>
+                                                                        <Text
+                                                                            style={styles(scales).extra_ingradient_title}>{translator.translate(language, "Оберіть додаткові складники")}</Text>
+                                                                    </>
+                                                                )
+                                                                : null
+                                                        }
+                                                        {
+                                                            isPizzaProduct()
+                                                                ? (
+                                                                    <>
+                                                                        <Spacer spaceHeight={7}/>
+                                                                        <Text
+                                                                            style={styles(scales).extra_ingradient_note}>{translator.translate(language, "У вартість входять основні складники піци. Усі додаткові інгредієнти оплачуються відповідно до вказаної ціни")}</Text>
+                                                                    </>
+                                                                )
+                                                                : null
+                                                        }
+                                                    </View>
+                                                </Block>
+                                                {
+                                                    hasIngredients() && ingredients.length
+                                                        ? (
+                                                            <>
+                                                                {
+                                                                    (ingredientsLimit || ingredientsLimit === 0) && product.hasIngredientLimit
+                                                                        ? (
+                                                                            <>
+                                                                                <Spacer spaceHeight={10}/>
+                                                                                <View style={styles(scales).limit_container}>
+                                                                                    <Text style={styles(scales).limit_text}>{translator.translate(language, 'Можлива кількість складників')}:
+                                                                                        <Text style={styles(scales).limit_quantity}> {ingredientsLimit}</Text>
+                                                                                    </Text>
+                                                                                </View>
+                                                                            </>
+                                                                        )
+                                                                        : null
+                                                                }
+                                                                <Spacer spaceHeight={15} />
+                                                                <Block>
+                                                                    <SelectIngredientsCategoryInput
+                                                                        dataList={ingredientsCategories}
+                                                                        callback={(value) => setActiveIngredientsCategory(value)}
+                                                                        defaultValue={activeIngredientsCategory}
+                                                                    />
+                                                                </Block>
+                                                                <Spacer spaceHeight={18}/>
+                                                                <FlatList
+                                                                    extraData={totalExtraIngredientsValue}
+                                                                    contentContainerStyle={styles(scales).ingredients_flat_list_container}
+                                                                    horizontal
+                                                                    showsHorizontalScrollIndicator={false}
+                                                                    keyExtractor={ingredient => "key" + ingredient.id}
+                                                                    data={filteredIngredients()}
+                                                                    renderItem={({item}) => <IngredientCard ingredient={item}
+                                                                                                            decreaseOnly={ingredientsLimitReached()}
+                                                                                                            callback={extraIngredientsHandler}
+                                                                    />}
+                                                                    ItemSeparatorComponent={() => <VerticalSpacer
+                                                                        spaceWidth={10}/>}
+                                                                />
+                                                            </>
+                                                        )
+                                                        : null
+                                                }
+                                                <Block>
+                                                    <Spacer spaceHeight={18}/>
+                                                    <View>
+                                                        <Text
+                                                            style={styles(scales).subtitle}>{translator.translate(language, "Коментар")}</Text>
+                                                    </View>
+                                                    <Spacer spaceHeight={7}/>
+                                                    <TextAreaInput
+                                                        placeholder={translator.translate(language, "Ваш коментар...")}
+                                                        name="comment"
+                                                        callback={handleComment}
+                                                        value={product.comment}
+                                                        clearError={() => {
+                                                        }}
+                                                    />
+                                                    <Spacer spaceHeight={18}/>
+                                                    <View style={app_styles(scales).row_between}>
+                                                        <View>
+                                                            <Text
+                                                                style={styles(scales).total_value_title}>{translator.translate(language, "Загальна вартість:")}</Text>
+                                                        </View>
+                                                        <View>
+                                                            <Text
+                                                                style={styles(scales).total_value_text}>{formatPrice(language, totalProductPrice)} {translator.translate(language, "грн")}</Text>
+                                                        </View>
+                                                    </View>
+                                                    {
+                                                        hasIngredients()
+                                                            ? (
+                                                                <>
+                                                                    <View style={app_styles(scales).row_between}>
+                                                                        <View>
+                                                                            {
+                                                                                isPizzaProduct()
+                                                                                    ? <Text
+                                                                                        style={styles(scales).total_value_subtitle}>- {translator.translate(language, "піца:")}</Text>
+                                                                                    : <Text
+                                                                                        style={styles(scales).total_value_subtitle}>- {translator.translate(language, "основна страва:")}</Text>
+                                                                            }
+                                                                        </View>
+                                                                        <View>
+                                                                            <Text
+                                                                                style={styles(scales).total_value_subtext}>{formatPrice(language, (totalProductPrice - getTotalIngrVal()))} {translator.translate(language, "грн")}</Text>
+                                                                        </View>
+                                                                    </View>
+                                                                    <View style={app_styles(scales).row_between}>
+                                                                        <View>
+                                                                            <Text
+                                                                                style={styles(scales).total_value_subtitle}>- {translator.translate(language, "додаткові складники:")}</Text>
+                                                                        </View>
+                                                                        <View>
+                                                                            <Text
+                                                                                style={styles(scales).total_value_subtext}>{formatPrice(language, getTotalIngrVal())} {translator.translate(language, "грн")}</Text>
+                                                                        </View>
+                                                                    </View>
+                                                                </>
+                                                            )
+                                                            : null
+                                                    }
+                                                    <Spacer spaceHeight={25}/>
+                                                    <ButtonAddToCart
+                                                        callback={addToCartHandler}
+                                                        title={translator.translate(language, 'Додати в кошик')}
+                                                    />
+                                                </Block>
+                                                <Spacer spaceHeight={25}/>
+                                            </>
+                                        )
+                                        : null
+                                )
+                                : <DataLoadingIndicator/>
+                        )
+                        : <NetworkErrorModal
+                            isOpened={networkError}
+                            closeCallback={() => setNetworkError(false)}
+                        />
+                }
+            </ScrollView>
+        </View>
+    )
 
+    const productView = () => {
+        let result = {}
+
+        routes.forEach((item, index) => {
+            if(index === 0) {
+                result[item.key] = (index) => productRender(product, index);
+            } else {
+                if(totalProducts.length > 0) {
+                    result[item.key] = (index) => productRender(totalProducts[index], index);
+                }
+            }
+        });
+
+        return result
+    }
+
+    const renderScene = SceneMap(productView());
+
+    const initialLayout = { width: Dimensions.get('window').width };
 
     //Template
     return (
@@ -295,173 +527,14 @@ const ProductScreen = ({navigation}) => {
                     exclamation
                     noBell
                 />
-                <View style={styles(scales).body}>
-                    <ScrollView showsVerticalScrollIndicator={false} bounces={false}
-                                keyboardShouldPersistTaps={'always'} contentContainerStyle={{flexGrow: 1}}>
-                        {
-                            !networkError
-                                ? (
-                                    !isDataLoading
-                                        ? (
-                                            product
-                                                ? (
-                                                    <>
-                                                        <ProductCard
-                                                            product={product}
-                                                            navigation={navigation}
-                                                            quantityCallBack={quantityHandler}
-                                                            variantCallback={variantHandler}
-                                                        />
-                                                        <Block>
-                                                            <View>
-                                                                {
-                                                                    hasIngredients()
-                                                                        ? (
-                                                                            <>
-                                                                                <Spacer spaceHeight={10}/>
-                                                                                <Text
-                                                                                    style={styles(scales).extra_ingradient_title}>{translator.translate(language, "Оберіть додаткові складники")}</Text>
-                                                                            </>
-                                                                        )
-                                                                        : null
-                                                                }
-                                                                {
-                                                                    isPizzaProduct()
-                                                                        ? (
-                                                                            <>
-                                                                                <Spacer spaceHeight={7}/>
-                                                                                <Text
-                                                                                    style={styles(scales).extra_ingradient_note}>{translator.translate(language, "У вартість входять основні складники піци. Усі додаткові інгредієнти оплачуються відповідно до вказаної ціни")}</Text>
-                                                                            </>
-                                                                        )
-                                                                        : null
-                                                                }
-                                                            </View>
-                                                        </Block>
-                                                        {
-                                                            hasIngredients() && ingredients.length
-                                                                ? (
-                                                                    <>
-                                                                        {
-                                                                            (ingredientsLimit || ingredientsLimit === 0) && product.hasIngredientLimit
-                                                                                ? (
-                                                                                    <>
-                                                                                        <Spacer spaceHeight={10}/>
-                                                                                        <View style={styles(scales).limit_container}>
-                                                                                            <Text style={styles(scales).limit_text}>{translator.translate(language, 'Можлива кількість складників')}:
-                                                                                                <Text style={styles(scales).limit_quantity}> {ingredientsLimit}</Text>
-                                                                                            </Text>
-                                                                                        </View>
-                                                                                    </>
-                                                                                )
-                                                                                : null
-                                                                        }
-                                                                        <Spacer spaceHeight={15} />
-                                                                        <Block>
-                                                                            <SelectIngredientsCategoryInput
-                                                                                dataList={ingredientsCategories}
-                                                                                callback={(value) => setActiveIngredientsCategory(value)}
-                                                                                defaultValue={activeIngredientsCategory}
-                                                                            />
-                                                                        </Block>
-                                                                        <Spacer spaceHeight={18}/>
-                                                                        <FlatList
-                                                                            extraData={totalExtraIngredientsValue}
-                                                                            contentContainerStyle={styles(scales).ingredients_flat_list_container}
-                                                                            horizontal
-                                                                            showsHorizontalScrollIndicator={false}
-                                                                            keyExtractor={ingredient => "key" + ingredient.id}
-                                                                            data={filteredIngredients()}
-                                                                            renderItem={({item}) => <IngredientCard ingredient={item}
-                                                                                                                    decreaseOnly={ingredientsLimitReached()}
-                                                                                                                    callback={extraIngredientsHandler}
-                                                                                                    />}
-                                                                            ItemSeparatorComponent={() => <VerticalSpacer
-                                                                                spaceWidth={10}/>}
-                                                                        />
-                                                                    </>
-                                                                )
-                                                                : null
-                                                        }
-                                                        <Block>
-                                                            <Spacer spaceHeight={18}/>
-                                                            <View>
-                                                                <Text
-                                                                    style={styles(scales).subtitle}>{translator.translate(language, "Коментар")}</Text>
-                                                            </View>
-                                                            <Spacer spaceHeight={7}/>
-                                                            <TextAreaInput
-                                                                placeholder={translator.translate(language, "Ваш коментар...")}
-                                                                name="comment"
-                                                                callback={handleComment}
-                                                                value={product.comment}
-                                                                clearError={() => {
-                                                                }}
-                                                            />
-                                                            <Spacer spaceHeight={18}/>
-                                                            <View style={app_styles(scales).row_between}>
-                                                                <View>
-                                                                    <Text
-                                                                        style={styles(scales).total_value_title}>{translator.translate(language, "Загальна вартість:")}</Text>
-                                                                </View>
-                                                                <View>
-                                                                    <Text
-                                                                        style={styles(scales).total_value_text}>{formatPrice(language, totalProductPrice)} {translator.translate(language, "грн")}</Text>
-                                                                </View>
-                                                            </View>
-                                                            {
-                                                                hasIngredients()
-                                                                    ? (
-                                                                        <>
-                                                                            <View style={app_styles(scales).row_between}>
-                                                                                <View>
-                                                                                    {
-                                                                                        isPizzaProduct()
-                                                                                            ? <Text
-                                                                                                style={styles(scales).total_value_subtitle}>- {translator.translate(language, "піца:")}</Text>
-                                                                                            : <Text
-                                                                                                style={styles(scales).total_value_subtitle}>- {translator.translate(language, "основна страва:")}</Text>
-                                                                                    }
-                                                                                </View>
-                                                                                <View>
-                                                                                    <Text
-                                                                                        style={styles(scales).total_value_subtext}>{formatPrice(language, (totalProductPrice - getTotalIngrVal()))} {translator.translate(language, "грн")}</Text>
-                                                                                </View>
-                                                                            </View>
-                                                                            <View style={app_styles(scales).row_between}>
-                                                                                <View>
-                                                                                    <Text
-                                                                                        style={styles(scales).total_value_subtitle}>- {translator.translate(language, "додаткові складники:")}</Text>
-                                                                                </View>
-                                                                                <View>
-                                                                                    <Text
-                                                                                        style={styles(scales).total_value_subtext}>{formatPrice(language, getTotalIngrVal())} {translator.translate(language, "грн")}</Text>
-                                                                                </View>
-                                                                            </View>
-                                                                        </>
-                                                                    )
-                                                                    : null
-                                                            }
-                                                            <Spacer spaceHeight={25}/>
-                                                            <ButtonAddToCart
-                                                                callback={addToCartHandler}
-                                                                title={translator.translate(language, 'Додати в кошик')}
-                                                            />
-                                                        </Block>
-                                                        <Spacer spaceHeight={25}/>
-                                                    </>
-                                                )
-                                                : null
-                                        )
-                                        : <DataLoadingIndicator/>
-                                )
-                                : <NetworkErrorModal
-                                    isOpened={networkError}
-                                    closeCallback={() => setNetworkError(false)}
-                                />
-                        }
-                    </ScrollView>
-                </View>
+                <TabView
+                    renderTabBar={props => <TabBar {...props} style={{ display: 'none' }}/> }
+                    navigationState={{ index, routes }}
+                    renderScene={renderScene}
+                    onIndexChange={setIndex}
+                    initialLayout={initialLayout}
+                />
+
             </SafeView>
         </KeyboardAvoidingView>
     )
