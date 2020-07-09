@@ -171,7 +171,7 @@ export default class ProductsBlock extends React.PureComponent {
                                                 showsVerticalScrollIndicator={false}
                                                 keyExtractor={(order, index) => "key" + index}
                                                 data={this._getProductsList()}
-                                                renderItem={({ item }) => <ProductCardMenu product={item} navigation={navigation}/>}
+                                                renderItem={({ item }) => <ProductCardMenu product={item} products={products} navigation={navigation}/>}
                                                 ItemSeparatorComponent={() => <Spacer spaceHeight={20} />}
                                                 contentContainerStyle={{ paddingTop: Math.round(scales.heightScale * 20), paddingBottom: Math.round(scales.heightScale * 30) }}
                                                 bounces={false}

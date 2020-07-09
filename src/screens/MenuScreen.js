@@ -277,7 +277,7 @@ const MenuScreen = ({navigation}) => {
                     )
                     : (
                         <>
-                            <StatusBar backgroundColor={app_styles(scales).colors.app.blue} barStyle="light-content"/>
+                            <StatusBar backgroundColor={app_styles(scales).colors.app.orange} barStyle="light-content"/>
                             <View style={styles(scales).error_container}>
                                 <IcoMoonIcon
                                     name="logo"

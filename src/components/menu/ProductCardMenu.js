@@ -23,7 +23,7 @@ import {app_styles} from '../../styles/app_styles';
 
 
 //----COMPONENT----//
-const ProductCardMenu = ({product, navigation}) => {
+const ProductCardMenu = ({product, navigation, products}) => {
     //Data and State
     const {state: {language, scales, appSettings}} = useContext(AppSettingsContext);
     const {state: {cart, itemsInCart}, addToCart, updateCart, removeFromCart} = useContext(MenuContext);
@@ -203,7 +203,7 @@ const ProductCardMenu = ({product, navigation}) => {
                                     {/* Product Description */}
                                     <View style={styles(scales).product_description_container}>
                                         <TouchableOpacity
-                                            onPress={() => hasOwnScreen() ? navigation.navigate('Product', {'productId': product.id}) : null}
+                                            onPress={() => hasOwnScreen() ? navigation.navigate('Product', {'productId': product.id, products: products}) : null}
                                             activeOpacity={hasOwnScreen() ? .8 : 1}
                                         >
                                             <Text style={styles(scales).product_title}>{product.name}</Text>

@@ -251,8 +251,8 @@ const MakeOrderScreen = ({navigation}) => {
     const formSubmit = async () => {
         try {
             let requiredFields = (orderData.city && orderData.city.id === 0)
-                ? ['name', 'phone', 'other_city_name', 'street', 'house', 'time']
-                : ['name', 'phone', 'city', 'street', 'house', 'time'];
+                ? ['name', 'phone', 'other_city_name', 'street', 'house']
+                : ['name', 'phone', 'city', 'street', 'house'];
             if (hasEmptyFields(orderData, requiredFields)) return;
             if (!validatePhoneLength()) return;
             if (!timeIsValid()) return;
@@ -656,17 +656,17 @@ const MakeOrderScreen = ({navigation}) => {
                                                             />
                                                         </View>
                                                         <Spacer spaceHeight={10}/>
-                                                        <View style={app_styles(scales).row_between_start}>
-                                                            <DateTimePikerInput
-                                                                scales={scales}
-                                                                callback={handleFormInputs}
-                                                                placeholder={translator.translate(language, "Час доставки")}
-                                                                clearError={clearValidationErrors}
-                                                                name="time"
-                                                                error={validationErrors.time}
-                                                            />
-                                                        </View>
-                                                        <Spacer spaceHeight={10}/>
+                                                        {/*<View style={app_styles(scales).row_between_start}>*/}
+                                                        {/*    <DateTimePikerInput*/}
+                                                        {/*        scales={scales}*/}
+                                                        {/*        callback={handleFormInputs}*/}
+                                                        {/*        placeholder={translator.translate(language, "Час доставки")}*/}
+                                                        {/*        clearError={clearValidationErrors}*/}
+                                                        {/*        name="time"*/}
+                                                        {/*        error={validationErrors.time}*/}
+                                                        {/*    />*/}
+                                                        {/*</View>*/}
+                                                        {/*<Spacer spaceHeight={10}/>*/}
                                                         <SimpleInput
                                                             callback={handleFormInputs}
                                                             placeholder={translator.translate(language, "Побажання до замовлення")}

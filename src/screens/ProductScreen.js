@@ -41,6 +41,8 @@ import axios from "axios";
 
 //----COMPONENT----//
 const ProductScreen = ({navigation}) => {
+    const productsData = navigation.getParam('products');
+
     //Data and State
     const {state: {scales, language, appSettings}} = useContext(AppSettingsContext);
     const {addToCart} = useContext(MenuContext);
@@ -61,58 +63,39 @@ const ProductScreen = ({navigation}) => {
     const [ingredientsLimit, setIngredientsLimit] = useState(null);
 
     const [totalProducts, setTotalProducts] = useState([]);
+    const [index, setIndex] = useState(0);
+    const [routes, setRoutes] = useState(totalProducts);
 
-    const [index, setIndex] = React.useState(0);
-    const [routes, setRoutes] = React.useState(totalProducts);
     //Methods and hooks
     useEffect(() => {
-
         if (product) {
             if (!product.size && !product.sauce) {
                 startProductManipulations();
             }
             totalPriceCalculator();
-            test();
         }
+
+        fetchTotalProduct();
 
     }, [product, recalculate]);
 
-    const test = async () => {
-        const total = await getProductsTotal();
-        setTotalProducts(total);
-        setRoutes(total);
-    }
 
-    const getProductData = async (page) => {
-        const lang = prepareLanguageToHttpRequest(language);
-        const url = `${BASE_URL}/product/products-for-category?lang=${lang}&version=${APP_VERSION}&category_id=1&page=${page}`;
-        const { data } = await axiosWithErrorHandler.get(url);
+    const fetchTotalProduct = () => {
+        const productId = navigation.getParam('productId');
 
-        return data;
-    }
-
-    const getProductsTotal = async () => {
-        let productArray = [];
-        let page = 1;
-        let result = await getProductData(page);
-
-        productArray = [...result.data];
-
-        for(let i = page + 1; i <= result.meta.total_pages; i++) {
-            const data = await getProductData(i);
-            productArray = [
-                ...productArray,
-                ...data.data
-            ]
-        }
-
-        return productArray.map(item => {
+        const resultData = productsData.map((item, index) => {
+            if(item.id === productId) {
+                setIndex(index);
+            }
             return {
                 ...item,
                 key: item.id,
-                name: item.name
+                title: item.name
             }
-        })
+        });
+
+        setTotalProducts(resultData);
+        setRoutes(resultData);
     }
 
     const handleFocus = () => {
@@ -140,6 +123,7 @@ const ProductScreen = ({navigation}) => {
                     if (product_data && Object.keys(product_data).length) {
 
                         setProduct(product_data);
+
                         if(parseInt(product_data.ingredientLimit)){
                             setIngredientsLimit(parseInt(product_data.ingredientLimit));
                         }
@@ -321,9 +305,23 @@ const ProductScreen = ({navigation}) => {
         return ingredientsLimit <= 0;
     }
 
-    const productRender = (product, index) => (
+    const productView = () => {
+        let result = {}
+
+        routes.map((item, ind) => {
+            result[item.key] = () => productRender(ind);
+        });
+
+        return result
+    }
+
+    const renderScene = SceneMap(productView());
+
+    const initialLayout = { width: Dimensions.get('window').width };
+
+    const productRender = (indexValue) => (
         <View
-            key={index}
+            key={indexValue}
             style={styles(scales).body}>
             <ScrollView showsVerticalScrollIndicator={false} bounces={false}
                         keyboardShouldPersistTaps={'always'} contentContainerStyle={{flexGrow: 1}}>
@@ -332,11 +330,11 @@ const ProductScreen = ({navigation}) => {
                         ? (
                             !isDataLoading
                                 ? (
-                                    product
+                                    totalProducts[indexValue]
                                         ? (
                                             <>
                                                 <ProductCard
-                                                    product={product}
+                                                    product={totalProducts[indexValue]}
                                                     navigation={navigation}
                                                     quantityCallBack={quantityHandler}
                                                     variantCallback={variantHandler}
@@ -493,26 +491,6 @@ const ProductScreen = ({navigation}) => {
         </View>
     )
 
-    const productView = () => {
-        let result = {}
-
-        routes.forEach((item, index) => {
-            if(index === 0) {
-                result[item.key] = (index) => productRender(product, index);
-            } else {
-                if(totalProducts.length > 0) {
-                    result[item.key] = (index) => productRender(totalProducts[index], index);
-                }
-            }
-        });
-
-        return result
-    }
-
-    const renderScene = SceneMap(productView());
-
-    const initialLayout = { width: Dimensions.get('window').width };
-
     //Template
     return (
         <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : null} enabled>
@@ -528,7 +506,7 @@ const ProductScreen = ({navigation}) => {
                     noBell
                 />
                 <TabView
-                    renderTabBar={props => <TabBar {...props} style={{ display: 'none' }}/> }
+                    renderTabBar={() => null}
                     navigationState={{ index, routes }}
                     renderScene={renderScene}
                     onIndexChange={setIndex}
