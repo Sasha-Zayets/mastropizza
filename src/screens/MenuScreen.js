@@ -282,7 +282,7 @@ const MenuScreen = ({navigation}) => {
                                 <IcoMoonIcon
                                     name="logo"
                                     size={Math.round(scales.widthScale * 100)}
-                                    color={app_styles(scales).colors.app.white}
+                                    color={app_styles(scales).colors.app.black}
                                 />
                                 <Spacer spaceHeight={40}/>
                                 <Text style={styles(scales).error_title}>OOOPPPSSS....</Text>
@@ -294,7 +294,7 @@ const MenuScreen = ({navigation}) => {
                                 <Spacer spaceHeight={30}/>
                                 <View style={{paddingHorizontal: Math.round(scales.widthScale * 50), alignSelf: 'stretch'}}>
                                     <ButtonOrder
-                                        color={'#ED7225'}
+                                        color={app_styles(scales).colors.app.black}
                                         title={"Спробувати ще"}
                                         callback={handleTryAgain}
                                     />

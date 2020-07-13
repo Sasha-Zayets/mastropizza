@@ -1,4 +1,4 @@
-const BASE_URL = "https://emmapizza.devseonet.com/api";
+const BASE_URL = "https://mastropizza.devseonet.com/api";
 const APP_VERSION = '1';
 
 export {

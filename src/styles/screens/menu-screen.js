@@ -62,19 +62,19 @@ const styles = (scales) => StyleSheet.create({
     },
     error_container: {
         flex: 1,
-        backgroundColor: app_styles(scales).colors.app.blue,
+        backgroundColor: app_styles(scales).colors.app.orange,
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: Math.round(scales.widthScale * 30)
     },
     error_title: {
-        color: app_styles(scales).colors.app.gold,
+        color: app_styles(scales).colors.app.black,
         textTransform: 'uppercase',
         fontFamily: app_styles(scales).fonts.weight.medium,
         fontSize: app_styles(scales).fonts.size.base
     },
     error_text: {
-        color: app_styles(scales).colors.text.white,
+        color: app_styles(scales).colors.text.black,
         textAlign: 'center',
         fontFamily: app_styles(scales).fonts.weight.regular,
         fontSize: app_styles(scales).fonts.size.base * .8
