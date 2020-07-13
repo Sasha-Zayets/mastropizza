@@ -6,7 +6,7 @@ import { Dimensions, View, Text, Animated } from 'react-native';
 import SideSwipe from 'react-native-sideswipe';
 //Components
 import RestaurantBannerCard from './RestaurantBannerCard';
-import VerticalSpacer, { Spacer } from "../shared";
+import VerticalSpacer from '../shared/VerticalSpacer';
 //Styles
 import styles from '../../styles/components/restaurant/carousel';
 import { app_styles } from '../../styles/app_styles';

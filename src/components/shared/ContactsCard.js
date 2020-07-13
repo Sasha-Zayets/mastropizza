@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, Image } from 'react-native';
 
 import styles from '../../styles/components/shared/contacts-card';
@@ -7,10 +7,29 @@ import {createIconSetFromIcoMoon} from "react-native-vector-icons";
 import { app_styles } from '../../styles/app_styles.js';
 
 import icoMoonConfig from "../../../selection.json";
+import {notEmptyString} from "../../helpers/helpers";
 const IcoMoonIcon = createIconSetFromIcoMoon(icoMoonConfig, 'icomoon', 'icomoon.ttf');
 
-const ContactsCard = () => {
+const ContactsCard = ({ restaurant }) => {
   const {state: {scales} } = useContext(AppSettingsContext);
+  const [socials, setSocials] = useState([]);
+
+  useEffect(() => {
+    socialList();
+  }, []);
+
+  const socialList = () => {
+    const key = ['facebook', 'instagram', 'youtube', 'vk'];
+    const totalSocials = [];
+
+    key.forEach(item => {
+      if(notEmptyString(restaurant[item])) {
+        totalSocials.push({[item]: restaurant[item]});
+      }
+    });
+
+    setSocials(totalSocials);
+  }
 
   return (
       <View style={styles(scales).container}>
@@ -23,7 +42,7 @@ const ContactsCard = () => {
         <View style={[styles(scales).content, {backgroundColor: '#f5f5f5'}]}>
           <View style={styles(scales).header}>
             <Text style={styles(scales).title}>
-              М.Луцьк, вул. Л.Українки 20
+              { restaurant.address }
             </Text>
           </View>
           <View style={styles(scales).information_container}>
@@ -33,7 +52,9 @@ const ContactsCard = () => {
                   color={app_styles(scales).colors.app.orange}
                   size={Math.round(scales.widthScale * 18)}
               />
-              <Text style={styles(scales).value_phone}>+38 099 176 7005</Text>
+              <Text style={styles(scales).value_phone}>
+                { restaurant.phone }
+              </Text>
             </View>
             <View style={[styles(scales).blocks, {justifyContent: 'flex-end'}]}>
               <IcoMoonIcon
@@ -41,19 +62,29 @@ const ContactsCard = () => {
                   color={app_styles(scales).colors.app.orange}
                   size={Math.round(scales.widthScale * 18)}
               />
-              <Text style={styles(scales).value_phone}>24/7</Text>
+              <Text style={styles(scales).value_phone}>
+                { restaurant.schedule }
+              </Text>
             </View>
           </View>
           <View style={styles(scales).bottom}>
             <Text style={styles(scales).label}>Соц. мережі</Text>
 
             <View style={styles(scales).socials_list}>
-              <IcoMoonIcon
-                  name="facebook"
-                  color={app_styles(scales).colors.app.orange}
-                  size={Math.round(scales.widthScale * 18)}
-                  style={styles(scales).social_icon}
-              />
+              {
+                socials.map((item, index) => {
+                  return (
+                    <IcoMoonIcon
+                        key={index}
+                        name="facebook"
+                        color={app_styles(scales).colors.app.orange}
+                        size={Math.round(scales.widthScale * 18)}
+                        style={styles(scales).social_icon}
+                    />
+                  )
+                })
+              }
+
               <IcoMoonIcon
                   name="instagram"
                   color={app_styles(scales).colors.app.orange}

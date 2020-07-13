@@ -2,7 +2,7 @@
 //React
 import React, {useContext, useState, useEffect} from 'react';
 //React native
-import {View, ScrollView, Text, Animated, Easing, TouchableOpacity, Linking} from 'react-native';
+import {View, ScrollView, Text, Animated, Easing, TouchableOpacity, Linking, AsyncStorage} from 'react-native';
 //Context
 import {Context as AppSettingsContext} from "../context/AppSettingsContext";
 //React-native-vector-icons package
@@ -24,6 +24,8 @@ import {prepareLanguageToHttpRequest, notEmptyString} from "../helpers/helpers";
 //Styles
 import styles from '../styles/screens/contacts-screen';
 import {app_styles} from "../styles/app_styles";
+import {APP_VERSION, BASE_URL} from "../different/global_vars";
+import axiosWithErrorHandler from "../services/axiosWithErrorHandler";
 
 
 //----COMPONENT----//
@@ -33,39 +35,41 @@ const ContactsScreen = ({navigation}) => {
     const [isDataLoading, setIsDataLoading] = useState(false);
     const [animatedHeight, setAnimatedHeight] = useState(new Animated.Value(Math.round(scales.heightScale * 270)));
     const [extendedCard, setExtendedCard] = useState(false);
+    const [restaurants, setRestaurants] = useState([]);
 
+    useEffect(() => {
+        console.log('kdskskd')
+        loadDataRestoraund();
+    }, []);
 
-    //Hooks and Methods
-    const widenPhoto = () => {
-        Animated.timing(animatedHeight, {
-            toValue: Math.round(scales.widthScale * 110),
-            duration: 300,
-            easing: Easing.linear
-        }).start();
-    }
+    const loadDataRestoraund = async () => {
+        try {
+            setIsDataLoading(true);
+            const language = language || await AsyncStorage.getItem('language');
+            const lang = prepareLanguageToHttpRequest(language);
 
+            const url = `${BASE_URL}/restaurant/restaurants?lang=${lang}`;
+            const response = await axiosWithErrorHandler.get(url);
 
-    const shortenPhoto = () => {
-        Animated.timing(animatedHeight, {
-            toValue: Math.round(scales.widthScale * 270),
-            duration: 300,
-            easing: Easing.linear
-        }).start();
-    }
+            const totalInfo = []
 
+            response.data.data.restaurants.forEach((item) => {
+               getInfoRestaurant(item.id, lang)
+                   .then((data) => {
+                       totalInfo.push(data);
+                   });
+            });
 
-    const toggleHeight = () => {
-        if (extendedCard) {
-            shortenPhoto();
-        } else {
-            widenPhoto();
+            setRestaurants(totalInfo);
+        } finally {
+            setIsDataLoading(false)
         }
-        setExtendedCard(!extendedCard)
     }
 
-
-    const getArrowPosition = () => {
-        return !extendedCard ? "180deg" : "0deg";
+    const getInfoRestaurant = async (id, lang) => {
+        const getUrl = `${BASE_URL}/restaurant/restaurant?lang=${lang}&restaurant_id=${id}`
+        const { data } = await axiosWithErrorHandler.get(getUrl);
+        return data.data;
     }
 
     const handleFocus = async () => {
@@ -135,8 +139,6 @@ const ContactsScreen = ({navigation}) => {
     }
 
 
-
-
     //Template
     return (
         <>
@@ -166,9 +168,16 @@ const ContactsScreen = ({navigation}) => {
                                         ? (
                                             <>
                                                 <View style={styles(scales).container}>
-                                                    <ContactsCard style={styles(scales).contacts_card}/>
-                                                    <ContactsCard style={styles(scales).contacts_card}/>
-                                                    <ContactsCard style={styles(scales).contacts_card}/>
+                                                    {
+                                                        restaurants.map((restaurant, index) => {
+                                                            return (
+                                                                <ContactsCard
+                                                                    key={index}
+                                                                    restaurant={restaurant}
+                                                                    style={styles(scales).contacts_card}/>
+                                                            )
+                                                        })
+                                                    }
                                                 </View>
                                             </>
                                         )

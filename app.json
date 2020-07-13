@@ -12,7 +12,7 @@
     "orientation": "portrait",
     "icon": "./assets/logo_icon.png",
     "notification": {
-      "icon": "./assets/logo.png",
+      "icon": "./assets/logo_icon.png",
       "iosDisplayInForeground": true
     },
     "androidStatusBar": {
@@ -60,6 +60,7 @@
     },
     "facebookScheme": "fb668596570367881",
     "facebookAppId": "668596570367881",
-    "facebookDisplayName": "Mastro Pizza"
+    "facebookDisplayName": "Mastro Pizza",
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }
