@@ -21,19 +21,27 @@ const InitAppLoadingIndicator = () => {
     //Template
     return (
         <>
-            <StatusBar backgroundColor={app_styles(scales).colors.app.blue} barStyle="light-content"/>
+            <StatusBar backgroundColor={app_styles(scales).colors.app.orange} barStyle="light-content"/>
             <SafeView>
-                <ImageBackground
-                    source={require("../../../assets/splash.png")}
-                    style={styles(scales).main_container}
-                >
+                <View style={{
+                    height: '100%',
+                    backgroundColor: app_styles(scales).colors.app.orange,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <ImageBackground
+                        source={require("../../../assets/logo.png")}
+                        style={styles(scales).main_container}
+                    />
+                    <Spacer spaceHeight={40}/>
                     <View style={app_styles(scales).row_center}>
                         <ActivityIndicator color={app_styles(scales).colors.app.white} size="small"/>
                         <VerticalSpacer spaceWidth={7}/>
                         <Text style={styles(scales).note}>Loading...</Text>
                     </View>
-                    <Spacer spaceHeight={40}/>
-                </ImageBackground>
+                </View>
             </SafeView>
         </>
 

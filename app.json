@@ -10,19 +10,19 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo_icon.png",
     "notification": {
-      "icon": "./assets/notifications_icon_rgb.png",
+      "icon": "./assets/logo.png",
       "iosDisplayInForeground": true
     },
     "androidStatusBar": {
-      "backgroundColor": "#465C87",
+      "backgroundColor": "#ff6900",
       "barStyle": "light-content"
     },
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#465c87"
+      "image": "./assets/logo_load.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ff6900"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -52,7 +52,7 @@
     },
     "android": {
       "package": "com.devseonet.mastropizza",
-      "versionCode": 6,
+      "versionCode": 1,
       "permissions": [
         "CAMERA",
         "ACCESS_NETWORK_STATE"

@@ -98,7 +98,7 @@ const AppMenuScreen = ({navigation}) => {
                                                 />
                                                 <Spacer spaceHeight={10}/>
                                                 <ButtonSimpleLink
-                                                    title={translator.translate(language, "Про Emma Pizza")}
+                                                    title={translator.translate(language, "Про MastroPizza")}
                                                     callback={() => navigation.navigate('Restaurant')}
                                                     medium
                                                     nounderline

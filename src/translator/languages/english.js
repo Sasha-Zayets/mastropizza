@@ -159,7 +159,7 @@ const english = {
     "Налаштування": "Settings",
     "Сповіщення": "Notifications",
     "Новини": "News",
-    "Про Emma Pizza": "About Emma Pizza",
+    "Про MastroPizza": "About MastroPizza",
     "Новини сервісу": "News",
     "Нарахування бонусів": "Bonuses accrual",
     "Повідомлення про доставку": "Delivery",

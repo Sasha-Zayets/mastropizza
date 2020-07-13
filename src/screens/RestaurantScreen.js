@@ -184,7 +184,7 @@ const RestaurantScreen = ({navigation}) => {
                     onWillFocus={handleFocus}
                 />
                 <Header
-                    title={translator.translate(language, 'Про Emma Pizza')}
+                    title={translator.translate(language, 'Про MastroPizza')}
                     navigation={navigation}
                     backAllowed
                     noIcons
