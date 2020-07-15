@@ -38,13 +38,11 @@ const ContactsScreen = ({navigation}) => {
     const [restaurants, setRestaurants] = useState([]);
 
     useEffect(() => {
-        console.log('kdskskd')
         loadDataRestoraund();
     }, []);
 
     const loadDataRestoraund = async () => {
         try {
-            setIsDataLoading(true);
             const language = language || await AsyncStorage.getItem('language');
             const lang = prepareLanguageToHttpRequest(language);
 
@@ -84,15 +82,7 @@ const ContactsScreen = ({navigation}) => {
         setIsDataLoading(false);
     }
 
-    const makeCall = () => {
-        let cleanedPhoneNumber = emmaPizzaRestaurant.phone.replace(/\D||\s/g, "");
 
-        if (cleanedPhoneNumber.indexOf('38') === 0) {
-            cleanedPhoneNumber = cleanedPhoneNumber.substring(2);
-        }
-        const link = Platform.OS === 'ios' ? `tel://+38${cleanedPhoneNumber}` : `tel:+38${cleanedPhoneNumber}`;
-        Linking.openURL(link)
-    }
 
     const sendEmail = () => {
         let address = contacts.email;
@@ -101,44 +91,7 @@ const ContactsScreen = ({navigation}) => {
         return Linking.openURL(link)
     }
 
-    const openMap = () => {
-        let link = emmaPizzaRestaurant.gmap;
-        return notEmptyString(link) ? Linking.openURL(link.trim()) : false;
-    }
-
-    const hasAtLeLeastOneSocial = () => {
-        return notEmptyString(emmaPizzaRestaurant.facebook)
-            || notEmptyString(emmaPizzaRestaurant.instagram)
-            || notEmptyString(emmaPizzaRestaurant.youtube)
-            || notEmptyString(emmaPizzaRestaurant.tripadvisor)
-    }
-
-
-    const handleLink = async (link, type) => {
-        if (type === 'instagram') {
-            let urlParts = link.split('/');
-            let username = urlParts[urlParts.length - 1];
-            let url = `instagram://user?username=${username}`;
-            try {
-                await Linking.openURL(url)
-            } catch (err) {
-                await Linking.openURL(link.trim())
-            }
-        } else if (type === 'youtube') {
-            let urlParts = link.split('/');
-            let chanelName = urlParts[urlParts.length - 1];
-            let url = `youtube://chanel=${chanelName}`;
-            try {
-                await Linking.openURL(url)
-            } catch (err) {
-                await Linking.openURL(link.trim())
-            }
-        } else {
-            await Linking.openURL(link.trim())
-        }
-    }
-
-
+    console.log(settingsNetworkError)
     //Template
     return (
         <>

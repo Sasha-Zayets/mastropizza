@@ -109,6 +109,7 @@ const getDeliveryCities = dispatch => async () => {
             return cities;
         }
     } catch (err) {
+        console.log('ksksk')
         dispatch({ type: 'setSettingsNetworkError', payload: true });
     }
 }
@@ -170,7 +171,7 @@ const getAppSettings = dispatch => async () => {
             let contacts = settings.contacts;
 
             let home_city_id = settings.orderDefaultCityId ? parseInt(settings.orderDefaultCityId) : 0;
-            
+
             if (settings && contacts) {
                 dispatch({ type: 'setSettings', payload: { settings, contacts, home_city_id } });
                 return settings;
